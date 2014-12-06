@@ -19,6 +19,8 @@
 
 package org.jdivisitor.debugger.launcher;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +50,19 @@ public class LocalVMLauncher extends VMConnector {
     private final String options;
 
     /**
-     * Constructor.
+     * Output stream that the virtual machine's stdout will be redirected to.
+     */
+    private final OutputStream outStream;
+
+    /**
+     * Output stream that the virtual machine's stderr will be redirected to.
+     */
+    private final OutputStream errStream;
+
+    /**
+     * Constructor. No options will be specified when starting the virtual
+     * machine. The virtual machine's {@code stdout} and {@code stderr} will be
+     * redirected to the local {@code stdout} and {@code stderr} respectively.
      *
      * @param mainClass The main class to launch. Cannot be {@code null} or
      * empty.
@@ -59,19 +73,23 @@ public class LocalVMLauncher extends VMConnector {
 
     /**
      * Constructor.
-     * 
+     *
      * @param mainClass The main class to launch. Cannot be {@code null} or
      * empty.
      * @param options The options to launch the virtual machine with
      */
     public LocalVMLauncher(String mainClass, String options) {
-        this.mainClass = Validate.notNull(mainClass);
-        this.options = Validate.notNull(options);
+        this(mainClass, options, System.out, System.err);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    public LocalVMLauncher(String mainClass, String options, OutputStream out,
+            OutputStream err) {
+        this.mainClass = Validate.notNull(mainClass);
+        this.options = Validate.notNull(options);
+        outStream = out;
+        errStream = err;
+    }
+
     @Override
     public VirtualMachine connect() throws Exception {
         List<LaunchingConnector> connectors = Bootstrap.virtualMachineManager()
@@ -81,8 +99,7 @@ public class LocalVMLauncher extends VMConnector {
         Map<String, Connector.Argument> arguments = connectorArguments(connector);
 
         VirtualMachine vm = connector.launch(arguments);
-
-        // TODO - Redirect stdout and stderr?
+        redirectOutput(vm);
 
         return vm;
     }
@@ -102,5 +119,37 @@ public class LocalVMLauncher extends VMConnector {
         arguments.get("options").setValue(options);
 
         return arguments;
+    }
+
+    /**
+     * Redirect the virtual machine's output ({@code stdout} and {@code stdin}).
+     *
+     * @param vm Virtual machine
+     */
+    private void redirectOutput(VirtualMachine vm) {
+        Process process = vm.process();
+
+        if (outStream != null) {
+            redirectStream("jdi-out", process.getInputStream(), outStream);
+        }
+
+        if (errStream != null) {
+            redirectStream("jdi-err", process.getErrorStream(), errStream);
+        }
+    }
+
+    /**
+     * Redirect an input stream to an output stream in a new daemon thread.
+     *
+     * @param name Thread name
+     * @param in Input stream
+     * @param out Output stream
+     */
+    private static void redirectStream(String name, InputStream in,
+            OutputStream out) {
+        Thread thread = new StreamRedirectThread(name, in, out);
+
+        thread.setDaemon(true);
+        thread.start();
     }
 }

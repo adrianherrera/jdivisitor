@@ -42,7 +42,7 @@ public abstract class VMConnector {
 
     /**
      * Find the virtual machine connector with the given name.
-     * 
+     *
      * @param connectorName The connector to find
      * @param connectors List of connectors to search
      * @return The connector

@@ -32,7 +32,7 @@ import com.sun.jdi.connect.Connector;
 
 /**
  * Attach (via a socket) to a listening virtual machine in debug mode.
- * 
+ *
  * @author Adrian Herrera
  *
  */
@@ -45,7 +45,7 @@ public class RemoteVMConnector extends VMConnector {
 
     /**
      * Constructor.
-     * 
+     *
      * @param hostname Name of the host to connect to
      * @param port Port number the virtual machine is listening on
      */
@@ -55,16 +55,13 @@ public class RemoteVMConnector extends VMConnector {
 
     /**
      * Constructor.
-     * 
+     *
      * @param sockAddr Socket address structure to connect to.
      */
     public RemoteVMConnector(InetSocketAddress sockAddr) {
         socketAddress = Validate.notNull(sockAddr);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public VirtualMachine connect() throws Exception {
         List<AttachingConnector> connectors = Bootstrap.virtualMachineManager()
@@ -82,7 +79,7 @@ public class RemoteVMConnector extends VMConnector {
 
     /**
      * Set the socket-attaching connector's arguments.
-     * 
+     *
      * @param connector A socket-attaching connector
      * @return The socket-attaching connector's arguments
      */
