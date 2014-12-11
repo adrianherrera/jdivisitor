@@ -60,28 +60,47 @@ public class LocalVMLauncher extends VMConnector {
     private final OutputStream errStream;
 
     /**
-     * Constructor. No options will be specified when starting the virtual
-     * machine. The virtual machine's {@code stdout} and {@code stderr} will be
-     * redirected to the local {@code stdout} and {@code stderr} respectively.
+     * Constructor. <br>
+     * <br>
+     * Specify a main class only. No options will be used when starting the
+     * virtual machine (debugee). The debugee virtual machine's {@code stdout}
+     * and {@code stderr} will be redirected to the local {@code stdout} and
+     * {@code stderr} respectively.
      *
-     * @param mainClass The main class to launch. Cannot be {@code null} or
-     * empty.
+     * @param mainClass The main class to launch (cannot be {@code null})
      */
     public LocalVMLauncher(String mainClass) {
         this(mainClass, StringUtils.EMPTY);
     }
 
     /**
-     * Constructor.
+     * Constructor. <br>
+     * <br>
+     * Specify a main class and options to launch it with. The debugee virtual
+     * machine's {@code stdout} and {@code stderr} will be redirected to the
+     * local {@code stdout} and {@code stderr} respectively.
      *
-     * @param mainClass The main class to launch. Cannot be {@code null} or
-     * empty.
+     * @param mainClass The main class to launch (cannot be {@code null})
      * @param options The options to launch the virtual machine with
      */
     public LocalVMLauncher(String mainClass, String options) {
         this(mainClass, options, System.out, System.err);
     }
 
+    /**
+     * Constructor. <br>
+     * <br>
+     * Specify a main class and options to launch it with. The debugee virtual
+     * machine's {@code stdout} and {@code stderr} can be redirected.
+     *
+     * @param mainClass The main class to launch (cannot be {@code null})
+     * @param options The options to launch the virtual machine with (cannot be
+     * {@code null})
+     * @param out Where to redirect the debugee's {@code stdout}. A {@code null}
+     * value means the debugee's {@code stdout} will be ignored
+     * @param err Where to redirect the debugee's {@code stderr}. A {@code null}
+     * value means the debugee's {@code stderr} will be ignored
+     */
     public LocalVMLauncher(String mainClass, String options, OutputStream out,
             OutputStream err) {
         this.mainClass = Validate.notNull(mainClass);
