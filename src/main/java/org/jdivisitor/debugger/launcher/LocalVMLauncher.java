@@ -70,7 +70,24 @@ public class LocalVMLauncher extends VMConnector {
      * @param mainClass The main class to launch (cannot be {@code null})
      */
     public LocalVMLauncher(String mainClass) {
-        this(mainClass, StringUtils.EMPTY);
+        this(mainClass, System.out, System.err);
+    }
+
+    /**
+     * Constructor. <br>
+     * <br>
+     * Specify a main class only.No options will be used when starting the
+     * virtual machine (debugee). The debugee virtual machine's {@code stdout}
+     * and {@code stderr} can be redirected.
+     *
+     * @param mainClass The main class to launch (cannot be {@code null})
+     * @param out Where to redirect the debugee's {@code stdout}. A {@code null}
+     * value means the debugee's {@code stdout} will be ignored
+     * @param err Where to redirect the debugee's {@code stderr}. A {@code null}
+     * value means the debugee's {@code stderr} will be ignored
+     */
+    public LocalVMLauncher(String mainClass, OutputStream out, OutputStream err) {
+        this(mainClass, StringUtils.EMPTY, out, err);
     }
 
     /**
