@@ -16,5 +16,5 @@ The following steps can be used to create your custom debugger application:
 5. Call the debugger's `requestEvents` method with the `EventRequestor` implemented in Step 1
 6. Call the debugger's `run` method with the `EventVisitor` implemented in Step 2
 
-## Still to come
-* Test cases and examples
+## Examples
+* Still to come
