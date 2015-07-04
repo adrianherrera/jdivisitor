@@ -32,11 +32,11 @@ import com.sun.jdi.event.ExceptionEvent;
 public class VisitableExceptionEvent implements Visitable {
 
     private final ExceptionEvent event;
-    
+
     public VisitableExceptionEvent(ExceptionEvent event) {
         this.event = event;
     }
-    
+
     @Override
     public void accept(EventVisitor visitor) {
         visitor.visit(event);

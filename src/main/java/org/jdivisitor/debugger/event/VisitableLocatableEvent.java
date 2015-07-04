@@ -30,13 +30,13 @@ import com.sun.jdi.event.LocatableEvent;
  * @see LocatableEvent
  */
 public class VisitableLocatableEvent implements Visitable {
-    
+
     private final LocatableEvent event;
-    
+
     public VisitableLocatableEvent(LocatableEvent event) {
         this.event = event;
     }
-    
+
     @Override
     public void accept(EventVisitor visitor) {
         visitor.visit(event);

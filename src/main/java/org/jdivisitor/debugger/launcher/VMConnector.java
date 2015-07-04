@@ -36,7 +36,7 @@ public abstract class VMConnector {
      *
      * @return The virtual machine instance
      * @throws Exception An error occurred when connecting to the virtual
-     * machine
+     *         machine
      */
     public abstract VirtualMachine connect() throws Exception;
 

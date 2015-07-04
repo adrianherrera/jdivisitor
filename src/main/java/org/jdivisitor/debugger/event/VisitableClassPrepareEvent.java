@@ -32,11 +32,11 @@ import com.sun.jdi.event.ClassPrepareEvent;
 public class VisitableClassPrepareEvent implements Visitable {
 
     private final ClassPrepareEvent event;
-    
+
     public VisitableClassPrepareEvent(ClassPrepareEvent event) {
         this.event = event;
     }
-    
+
     @Override
     public void accept(EventVisitor visitor) {
         visitor.visit(event);

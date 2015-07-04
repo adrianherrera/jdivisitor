@@ -32,11 +32,11 @@ import com.sun.jdi.event.MethodEntryEvent;
 public class VisitableMethodEntryEvent implements Visitable {
 
     private final MethodEntryEvent event;
-    
+
     public VisitableMethodEntryEvent(MethodEntryEvent event) {
         this.event = event;
     }
-    
+
     @Override
     public void accept(EventVisitor visitor) {
         visitor.visit(event);

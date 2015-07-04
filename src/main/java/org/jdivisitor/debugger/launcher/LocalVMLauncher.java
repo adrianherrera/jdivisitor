@@ -82,9 +82,9 @@ public class LocalVMLauncher extends VMConnector {
      *
      * @param mainClass The main class to launch (cannot be {@code null})
      * @param out Where to redirect the debugee's {@code stdout}. A {@code null}
-     * value means the debugee's {@code stdout} will be ignored
+     *        value means the debugee's {@code stdout} will be ignored
      * @param err Where to redirect the debugee's {@code stderr}. A {@code null}
-     * value means the debugee's {@code stderr} will be ignored
+     *        value means the debugee's {@code stderr} will be ignored
      */
     public LocalVMLauncher(String mainClass, OutputStream out, OutputStream err) {
         this(mainClass, StringUtils.EMPTY, out, err);
@@ -112,11 +112,11 @@ public class LocalVMLauncher extends VMConnector {
      *
      * @param mainClass The main class to launch (cannot be {@code null})
      * @param options The options to launch the virtual machine with (cannot be
-     * {@code null})
+     *        {@code null})
      * @param out Where to redirect the debugee's {@code stdout}. A {@code null}
-     * value means the debugee's {@code stdout} will be ignored
+     *        value means the debugee's {@code stdout} will be ignored
      * @param err Where to redirect the debugee's {@code stderr}. A {@code null}
-     * value means the debugee's {@code stderr} will be ignored
+     *        value means the debugee's {@code stderr} will be ignored
      */
     public LocalVMLauncher(String mainClass, String options, OutputStream out,
             OutputStream err) {

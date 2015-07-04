@@ -32,11 +32,11 @@ import com.sun.jdi.event.ClassUnloadEvent;
 public class VisitableClassUnloadEvent implements Visitable {
 
     private final ClassUnloadEvent event;
-    
+
     public VisitableClassUnloadEvent(ClassUnloadEvent event) {
         this.event = event;
     }
-    
+
     @Override
     public void accept(EventVisitor visitor) {
         visitor.visit(event);
